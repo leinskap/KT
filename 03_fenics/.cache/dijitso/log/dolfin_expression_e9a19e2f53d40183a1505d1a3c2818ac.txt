@@ -1,0 +1,9 @@
+c++ -Wall -shared -fPIC -std=c++11 -O3 -fno-math-errno -fno-trapping-math -ffinite-math-only -I/usr/lib/petscdir/petsc3.19/x86_64-linux-gnu-real/include -I/usr/lib/slepcdir/slepc3.19/x86_64-linux-gnu-real/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/include/hdf5/openmpi -I/usr/include/eigen3 -I/usr/lib/python3/dist-packages/ffc/backends/ufc -I/home/vikak/.cache/dijitso/include dolfin_expression_e9a19e2f53d40183a1505d1a3c2818ac.cpp -L/usr/lib/x86_64-linux-gnu/openmpi/lib -L/usr/lib/petscdir/petsc3.19/x86_64-linux-gnu-real/lib -L/usr/lib/slepcdir/slepc3.19/x86_64-linux-gnu-real/lib -L/usr/lib/x86_64-linux-gnu/hdf5/openmpi -L/home/vikak/.cache/dijitso/lib -Wl,-rpath,/home/vikak/.cache/dijitso/lib -lmpi -lmpi_cxx -lpetsc_real -lslepc_real -lm -ldl -lz -lsz -lcurl -lcrypto -lhdf5 -lboost_timer -ldolfin -olibdijitso-dolfin_expression_e9a19e2f53d40183a1505d1a3c2818ac.so
+
+/tmp/tmpyjwjtohs/dolfin_expression_e9a19e2f53d40183a1505d1a3c2818ac.cpp: In member function ‘virtual double dolfin::dolfin_expression_e9a19e2f53d40183a1505d1a3c2818ac::get_property(std::string) const’:
+/tmp/tmpyjwjtohs/dolfin_expression_e9a19e2f53d40183a1505d1a3c2818ac.cpp:76:11: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   76 |           if (name == "alpha") return alpha;          if (name == "beta") return beta;          if (name == "t") return t;
+      |           ^~
+/tmp/tmpyjwjtohs/dolfin_expression_e9a19e2f53d40183a1505d1a3c2818ac.cpp:76:55: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   76 |           if (name == "alpha") return alpha;          if (name == "beta") return beta;          if (name == "t") return t;
+      |                                                       ^~

@@ -24,42 +24,72 @@ L = 8
 R = 2
 N = 50
 
-domain = Rectangle(Point(0., 0.), Point(L, L)) - Circle(Point(4, 4), R, 100)
-mesh = generate_mesh(domain, N)
-
-V = FunctionSpace(mesh, 'P', 1)
-
-# Define boundary condition
-u_D = Expression('1 + x[0]*x[0] + alpha*x[1]*x[1] + beta*t', degree=2, alpha=alpha, beta=beta, t=0)
-
-def boundary(x, on_boundary):
-    return on_boundary
-
-bc = DirichletBC(V, u_D, boundary)
-
-# Define initial value
-u_n = interpolate(u_D, V)
-#u_n = project(u_D, V)
-
-# Define variational problem
-u = TrialFunction(V)
-v = TestFunction(V)
-f = Constant(beta - 2 - 1000*alpha)
-
-F = u * v * dx + dt * dot ( grad(u), grad(v) ) * dx - (u_n + dt*f)*dx
-# F = v*u*dx + dt*dot(grad(u), grad(v))*dx - (u_n + dt*f)*dx
-# F = (u + dt*f) * v * dx + u * v * dx + dt * dot ( grad(u), grad(v) ) * dx
-a, L = lhs(F), rhs(F)
-
-
-
-
-res_file = File('heat/solution.pvd')
+# domain = Rectangle(Point(0., 0.), Point(L, L)) - Circle(Point(4, 4), R, 100)
+# mesh = generate_mesh(domain, N)
+#
+# V = FunctionSpace(mesh, 'P', 1)
+#
+# # Define boundary condition
+# u_D = Expression('1 + x[0]*x[0] + alpha*x[1]*x[1] + beta*t', degree=2, alpha=alpha, beta=beta, t=0)
+#
+# def boundary(x, on_boundary):
+#     return on_boundary
+#
+# bc = DirichletBC(V, u_D, boundary)
+#
+# # Define initial value
+# u_n = interpolate(u_D, V)
+# #u_n = project(u_D, V)
+#
+# # Define variational problem
+# u = TrialFunction(V)
+# v = TestFunction(V)
+# f = Constant(beta - 2 - 1000*alpha)
+#
+# F = u * v * dx + dt * dot ( grad(u), grad(v) ) * dx - (u_n + dt*f)*dx
+# # F = v*u*dx + dt*dot(grad(u), grad(v))*dx - (u_n + dt*f)*dx
+# # F = (u + dt*f) * v * dx + u * v * dx + dt * dot ( grad(u), grad(v) ) * dx
+# a, L = lhs(F), rhs(F)
+#
+#
+#
+#
+# res_file = File('heat/solution.pvd')
 
 # Time-stepping
-u = Function(V)
+
 t = 0
 for n in range(num_steps):
+    domain = Rectangle(Point(0., 0.), Point(L, L)) - Circle(Point(4, 4), R, 100)
+    mesh = generate_mesh(domain, N)
+
+    V = FunctionSpace(mesh, 'P', 1)
+
+    # Define boundary condition
+    u_D = Expression('1 + x[0]*x[0] + alpha*x[1]*x[1] + beta*t', degree=2, alpha=alpha, beta=beta, t=0)
+
+
+    def boundary(x, on_boundary):
+        return on_boundary
+
+
+    bc = DirichletBC(V, u_D, boundary)
+
+    # Define initial value
+    u_n = interpolate(u_D, V)
+    # u_n = project(u_D, V)
+
+    # Define variational problem
+    u = TrialFunction(V)
+    v = TestFunction(V)
+    f = Constant(beta - 2 - 1000 * alpha)
+
+    F = u * v * dx + dt * dot(grad(u), grad(v)) * dx - (u_n + dt * f) * dx
+    # F = v*u*dx + dt*dot(grad(u), grad(v))*dx - (u_n + dt*f)*dx
+    # F = (u + dt*f) * v * dx + u * v * dx + dt * dot ( grad(u), grad(v) ) * dx
+    a, L = lhs(F), rhs(F)
+
+    res_file = File('heat/solution.pvd')
 
     # Update current time
     t += dt

@@ -18,6 +18,8 @@ class CalcMesh:
         # Профиль скорости взят какой-нибудь с потолка, есть только компонента по Z
         self.velocity = np.zeros(shape=(3, size, size), dtype=np.double)
         self.velocity[2] = np.power(self.nodes[0] - self.nodes[1], 2)
+    # def crack(self, start, finish):
+
 
     # Метод отвечает за выполнение для всей сетки шага по времени величиной tau
     def move(self, tau):
@@ -43,6 +45,7 @@ class CalcMesh:
         # Обходим все точки нашей расчётной сетки
         # Делаем это максимально неэффективным, зато наглядным образом
         number = len(self.nodes[0])
+        print(self.nodes[0])
         for i in range(0, number):
             for j in range(0, number):
                 # Вставляем новую точку в сетку VTK-снапшота

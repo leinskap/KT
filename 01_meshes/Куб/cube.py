@@ -19,6 +19,10 @@ gmsh.model.geo.addLine(1, 2, 1)
 gmsh.model.geo.addLine(2, 4, 2)
 gmsh.model.geo.addLine(4, 3, 3)
 gmsh.model.geo.addLine(3, 1, 4)
+gmsh.model.geo.mesh.setTransfiniteCurve(1, 162236)
+gmsh.model.geo.mesh.setTransfiniteCurve(2, 162236)
+gmsh.model.geo.mesh.setTransfiniteCurve(3, 162236)
+gmsh.model.geo.mesh.setTransfiniteCurve(4, 162236)
 
 
 gmsh.model.geo.addLine(1, 5, 5)
@@ -62,7 +66,7 @@ gmsh.model.geo.synchronize()
 
 gmsh.model.mesh.generate(3)
 
-gmsh.write("cube.msh")
+gmsh.write("cube.mesh")
 gmsh.write("cube.geo_unrolled")
 
 if '-nopopup' not in sys.argv:
